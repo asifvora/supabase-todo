@@ -31,7 +31,7 @@ export const HomeContainer: React.FC = observer(() => {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [getTodos]);
 
   const onSubmit = (params: Partial<IValues>) => {
     onSaveTodo(params);
