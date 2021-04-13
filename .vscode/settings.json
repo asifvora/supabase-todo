@@ -1,0 +1,6 @@
+{
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.validate.enable": false
+}

@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+button:focus {
+  outline: none;
+}
+html {
+  background: #2c2f34;
+  color: #ffffff;
+  text-align: center;
+  padding: 0 5%;
+}
+
+a {
+  text-decoration: none;
+}
+a:visited,
+a {
+  color: #ffffff;
+}
+
+.menu {
+  position: absolute;
+  width: 150px;
+  top: 0px;
+  right: 0;
+  height: 200px;
+  background: #fff;
+  transform: scale(1);
+  transform-origin: right top;
+  transition: transform 0.4s;
+  z-index: 0;
+}
+h3 {
+  text-align: left;
+}
