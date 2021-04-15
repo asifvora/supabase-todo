@@ -76,7 +76,9 @@ export const TodoForm: React.FC<IProps> = props => {
       {...styles.group}
       onSubmit={e => {
         handleSubmit(e);
-        resetForm();
+        setTimeout(() => {
+          resetForm();
+        }, 2000);
       }}
     >
       <input

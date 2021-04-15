@@ -42,8 +42,8 @@ export class UsersStore {
     });
     try {
       const { error } = await supabase.from('todos').insert([{ note }]);
-      console.log({ error });
       if (!error) {
+        //do something
       }
     } catch (error) {
       console.log({ error });

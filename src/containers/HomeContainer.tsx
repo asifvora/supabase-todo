@@ -1,12 +1,14 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 import { TransitionGroup, Transition } from 'react-transition-group';
 import { rootContext } from 'stores';
+import { supabase } from 'config/supabase';
 import { TodoForm, IValues } from 'components/TodoForm';
+import { Todo } from 'components/Todo';
 import { Spinner } from 'components/Spinner';
 import { Footer } from 'components/Footer';
 import { images } from 'config/images';
-
 import styles from 'styles/styles';
 
 export const HomeContainer: React.FC = observer(() => {
@@ -28,6 +30,21 @@ export const HomeContainer: React.FC = observer(() => {
     ui: { isLoading },
     data: { todos }
   } = state;
+  const todosData = toJS(todos);
+
+  useEffect(() => {
+    // Listen to * event
+    const subscription = supabase
+      .from('todos')
+      .on('*', payload => {
+        console.log('New Payload received!', payload);
+      })
+      .subscribe();
+
+    return () => {
+      if (subscription) supabase.removeSubscription(subscription);
+    };
+  }, []);
 
   useEffect(() => {
     getTodos();
@@ -68,7 +85,7 @@ export const HomeContainer: React.FC = observer(() => {
           <Spinner />
         ) : (
           <TransitionGroup {...styles.list} component="ul">
-            {todos
+            {todosData
               .filter(applyFilter[filter])
               .reverse()
               .map(todo => (
@@ -79,7 +96,9 @@ export const HomeContainer: React.FC = observer(() => {
                   // onEntered={node => node.classList.remove(styles.enter)}
                   // onExit={styles.onExit}
                 >
-                  <li>{todo.note}</li>
+                  <li>
+                    <Todo {...todo} />
+                  </li>
                 </Transition>
               ))}
           </TransitionGroup>
