@@ -37,10 +37,9 @@ export const HomeContainer: React.FC = observer(() => {
     const subscription = supabase
       .from('todos')
       .on('*', payload => {
-        console.log('New Payload received!', payload);
+        console.log('Change received!', payload);
       })
       .subscribe();
-
     return () => {
       if (subscription) supabase.removeSubscription(subscription);
     };
