@@ -52,8 +52,10 @@ export const Checkmark: React.FC<IProps> = ({ checked }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 130.2 130.2"
       width="20"
+      style={{ cursor: 'pointer' }}
     >
       <circle
+        style={{ cursor: 'pointer' }}
         {...styles.circle(checked)}
         fill="none"
         strokeWidth="6"
