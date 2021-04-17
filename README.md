@@ -2,7 +2,7 @@
 
 ![Todo](todos.gif?raw=true)
 
-## <a href="https://supabase-todo.netlify.app" target="_blank">LIVE DEMO</a>
+## <a href="https://supabase-todo.netlify.app" target="_blank" rel="noopener noreferrer">LIVE DEMO</a>
 
 ## Description
 
