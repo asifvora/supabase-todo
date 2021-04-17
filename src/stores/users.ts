@@ -41,9 +41,16 @@ export class UsersStore {
       }
     });
     try {
-      const { error } = await supabase.from('todos').insert([{ note }]);
+      const { error, data } = await supabase.from('todos').insert([{ note }]);
       if (!error) {
-        //do something
+        const {
+          data: { todos }
+        } = this.state;
+        this.setState({
+          data: {
+            todos: [...todos, ...data]
+          }
+        });
       }
     } catch (error) {
       console.log({ error });
@@ -57,6 +64,58 @@ export class UsersStore {
     }
   };
 
+  onToggleTodo = async (params: { id: number; done: boolean }) => {
+    const { id, done } = params;
+    try {
+      const { error, data: response } = await supabase
+        .from('todos')
+        .update({ done: !done })
+        .eq('id', id)
+        .single();
+      if (!error) {
+        const {
+          data: { todos }
+        } = this.state;
+        const updatedTodos = todos.map(item => {
+          if (item.id === id) {
+            return response;
+          } else {
+            return item;
+          }
+        });
+        this.setState({
+          data: {
+            todos: updatedTodos
+          }
+        });
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  onDeleteTodo = async (params: { id: number }) => {
+    const { id } = params;
+    try {
+      const { error } = await supabase
+        .from('todos')
+        .delete()
+        .eq('id', id);
+      if (!error) {
+        const {
+          data: { todos }
+        } = this.state;
+        this.setState({
+          data: {
+            todos: todos.filter(todo => todo.id !== id) || []
+          }
+        });
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   getTodos = async () => {
     const { ui } = this.state;
     this.setState({
@@ -66,8 +125,7 @@ export class UsersStore {
       }
     });
     try {
-      const { data, error } = await supabase.from('todos').select('*');
-      console.log({ error });
+      const { data } = await supabase.from('todos').select('*');
       this.setState({
         data: {
           todos: data || []

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { css } from 'glamor';
 import { images } from 'config/images';
 import { Checkmark } from 'components/Checkmark';
-import { supabase } from 'config/supabase';
 
 const styles = {
   container: css({
@@ -69,32 +68,19 @@ export type IProps = {
   note: string;
   done: boolean;
   createdAt: any;
+  onToggleTodo?: (params: { id: number }) => any;
+  onDeleteTodo?: (params: { id: number; done: boolean }) => any;
 };
 
-export const Todo: React.FC<IProps | any> = props => {
-  const { id, note, done } = props;
+export const Todo: React.FC<IProps | any> = memo(props => {
+  const { id, note, done, onToggleTodo, onDeleteTodo } = props;
 
-  const toggle = async () => {
-    try {
-      await supabase
-        .from('todos')
-        .update({ done: !done })
-        .eq('id', id)
-        .single();
-    } catch (error) {
-      console.log('error', error);
-    }
+  const toggle = () => {
+    onToggleTodo({ id, done });
   };
 
-  const deleteTodo = async () => {
-    try {
-      await supabase
-        .from('todos')
-        .delete()
-        .eq('id', id);
-    } catch (error) {
-      console.log('error', error);
-    }
+  const deleteTodo = () => {
+    onDeleteTodo({ id });
   };
 
   return (
@@ -103,9 +89,9 @@ export const Todo: React.FC<IProps | any> = props => {
         <Checkmark checked={done} />
       </div>
       <div {...styles.content(done)}>{note}</div>
-      <div>
+      <div {...styles.delete}>
         <img src={images.delete} alt="delete" onClick={deleteTodo} />
       </div>
     </article>
   );
-};
+});

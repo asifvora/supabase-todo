@@ -1,31 +1,4 @@
-import { css, keyframes } from 'glamor';
-
-const animations = {
-  slideInLeft: keyframes({
-    from: {
-      transform: 'translate3d(-100%, 0, 0)',
-      opacity: 0
-    },
-    to: {
-      opacity: 1,
-      transform: 'none'
-    }
-  }),
-  zoomOut: keyframes({
-    from: {
-      opacity: 1
-    },
-
-    '50%': {
-      opacity: 0,
-      transform: 'scale3d(.3, .3, .3)'
-    },
-
-    to: {
-      opacity: 0
-    }
-  })
-};
+import { css } from 'glamor';
 
 const styles = {
   container: css({
@@ -64,36 +37,12 @@ const styles = {
   }),
   list: css({
     listStyle: 'none',
-    overflowY: 'scroll',
+    // overflowY: 'scroll',
     padding: 0,
     '& li': {
       padding: '5px 0'
     }
   }),
-  enter: css({
-    animationFillMode: 'both',
-    animationDuration: '0.75s',
-    animationName: animations.slideInLeft
-  }),
-  exit: height =>
-    css({
-      animationFillMode: 'both',
-      animationDuration: '0.75s',
-      animationName: animations.zoomOut,
-      transition: 'max-height 0.75s, opacity 0.75s, padding 0.75s',
-      maxHeight: height,
-      overflow: 'hidden'
-    }),
-  onExit: node => {
-    node.classList.add(styles.exit(`${node.offsetHeight}px`));
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        node.style.maxHeight = 0;
-        node.style.opacity = 0;
-        node.style.padding = 0;
-      }, 0);
-    });
-  },
   filter: css({
     display: 'flex',
     position: 'relative',

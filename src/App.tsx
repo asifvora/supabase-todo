@@ -5,8 +5,6 @@ import { history, routes } from 'config/routes';
 // import { PrivateRoute } from 'containers/PrivateRoute';
 // import { PublicRoute } from 'containers/PublicRoute';
 
-import './App.css';
-
 export const App: React.FC = () => {
   return (
     <Router history={history}>
