@@ -21,7 +21,7 @@ export const HomeContainer: React.FC = observer(() => {
   };
 
   const {
-    UsersStore: { state, onSaveTodo, onToggleTodo, onDeleteTodo, getTodos }
+    TodosStore: { state, onSaveTodo, onToggleTodo, onDeleteTodo, getTodos }
   } = useContext(rootContext);
 
   const {

@@ -2,19 +2,19 @@ import { createContext } from 'react';
 import { observable } from 'mobx';
 import remotedev from 'mobx-remotedev';
 import { AppStore } from './app';
-import { UsersStore } from './users';
+import { TodosStore } from './todos';
 import { AuthStore } from './auth';
 
 export class RootStore {
   AppStore: AppStore;
-  UsersStore: UsersStore;
+  TodosStore: TodosStore;
   AuthStore: AuthStore;
 
   @observable version = 1;
 
   constructor() {
     this.AppStore = new AppStore(this);
-    this.UsersStore = new UsersStore(this);
+    this.TodosStore = new TodosStore(this);
     this.AuthStore = new AuthStore(this);
   }
 }

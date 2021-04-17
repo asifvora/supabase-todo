@@ -22,7 +22,7 @@ export const initialState: IInitialState = {
   }
 };
 
-export class UsersStore {
+export class TodosStore {
   @observable state: IInitialState = initialState;
   rootStore: RootStore;
 
