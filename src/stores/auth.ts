@@ -38,7 +38,7 @@ export class AuthStore {
 
   onLogOut = () => {
     this.reset();
-    this.rootStore.UsersStore.reset();
+    // this.rootStore.UsersStore.reset();
     history.replace(routes.index.path);
   };
 
